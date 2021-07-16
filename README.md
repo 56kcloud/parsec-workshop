@@ -1,4 +1,4 @@
-# Container, Cloud & DevOps Tutorials and Labs
+# Parsec Tutorials and Workshops
 
 <img src="../img/56k.jpg" alt="56K.Cloud Logo" width="150" height="99">
 <img src="https://github.com/parallaxsecond/parsec/doc/images/parsec/ARM1007_PARSEC Logo_ST2_RGB_Stacked_Colour.png" alt="Parsec logo">
