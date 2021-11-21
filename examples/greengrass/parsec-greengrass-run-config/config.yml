@@ -1,8 +1,10 @@
 system:
-  certificateFilePath: "parsec:object=ggeulachtoken;type=cert"
+  #certificateFilePath: "parsec:object=ggeulachtoken;type=cert"
   #privateKeyPath: "/private.pem.key"
   # the object in the URI is the actual label given the private key
-  privateKeyPath: "parsec:object=ggeulachtoken;type=cert"
+  #privateKeyPath: "parsec:object=ggeulachtoken;type=cert"
+  privateKeyPath: "/privKey.key"
+  certificateFilePath: "/thingCert.crt"
   rootCaPath: "/AmazonRootCA1.pem"
   rootpath: ""
   thingName: "${THING_NAME}"
@@ -20,5 +22,5 @@ services:
       name: "greengrass-parsec-plugin"
       derRootCaPath: ...
       derCertPath: ...
-      parsecSocket: "/var/run/parsec/parsec.sock"
+      parsecSocket: "/run/parsec/parsec.sock"
       password: "changeme"
