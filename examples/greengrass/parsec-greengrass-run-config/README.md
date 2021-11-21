@@ -11,7 +11,9 @@ Call the script to init the run configuration
 init.sh
 ```
 
+Make sure that IntelliJ has a JDK called `corretto-8` you can download it directly from IntelliJ and name
+it `corretto-8`, the generated run configs will depend on it.
+
 In IntelliJ you should find two new run configurations:
 - GreenGrassProvision
 - GreenGrassRun
-- 
