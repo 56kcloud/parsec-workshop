@@ -27,11 +27,9 @@ ENV GG_ADDITIONAL_CMD_ARGS=""
 ENV GG_START=""
 ENV GG_PROVISION=""
 ENV GG_THING_NAME=""
-
-WORKDIR /greengrass
+RUN yum install -y awscli shadow-utils
+WORKDIR /home/ggc_user
 COPY start.sh /greengrass/start.sh
+COPY config_example.yml /greengrass/config_example.yml
 RUN chmod +x /greengrass/start.sh
-CMD /greengrass/start.sh
-
-
-#--trusted-plugin pkcs11-provider-2.0.0-SNAPSHOT.jar
+ENTRYPOINT ["/greengrass/start.sh"]
