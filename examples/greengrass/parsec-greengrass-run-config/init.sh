@@ -72,10 +72,6 @@ function write_gg_docker_run_config() {
               <option name="value" value="${AWS_REGION}" />
             </DockerEnvVarImpl>
             <DockerEnvVarImpl>
-              <option name="name" value="AWS_REGION" />
-              <option name="value" value="${AWS_REGION}" />
-            </DockerEnvVarImpl>
-            <DockerEnvVarImpl>
               <option name="name" value="GG_ADDITIONAL_CMD_ARGS" />
               <option name="value" value="--trusted-plugin /provider.jar" />
             </DockerEnvVarImpl>

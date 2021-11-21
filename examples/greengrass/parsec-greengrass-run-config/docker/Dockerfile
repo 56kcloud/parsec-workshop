@@ -42,6 +42,8 @@ RUN git clone --recursive  https://github.com/aws-greengrass/aws-greengrass-nucl
     sed -i  's/1.5.3-WINDOWS-SNAPSHOT/1.0.0-SNAPSHOT/g' pom.xml && \
     ./mvnw install -DskipTests=true
 
+RUN find ~/.m2/repository -type f |grep -v -E '(com.aws|software.amazon)' | xargs | rm -f
+
 FROM parallaxsecond/parsec:0.8.1 as parsec
 
 FROM amazoncorretto:8
@@ -50,6 +52,7 @@ COPY --from=parsec /bin/parsec-tool /bin/
 COPY --from=builder /greengrass/ /greengrass/
 COPY --from=builder /greengrass/ /greengrass/
 COPY --from=from_source_builder /aws-greengrass-nucleus/target/Greengrass.jar /greengrass/lib/
+COPY --from=from_source_builder /root/.m2 /root/.m2
 
 # TINI_KILL_PROCESS_GROUP allows forwarding SIGTERM to all PIDs in the PID group so Greengrass can exit gracefully
 ENV TINI_KILL_PROCESS_GROUP=1
