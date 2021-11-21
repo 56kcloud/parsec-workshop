@@ -28,6 +28,8 @@ ENV GG_START=""
 ENV GG_PROVISION=""
 ENV GG_THING_NAME=""
 RUN yum install -y awscli shadow-utils
+RUN groupadd ggc_group && \
+    useradd ggc_user -m -g ggc_group
 WORKDIR /home/ggc_user
 COPY start.sh /greengrass/start.sh
 COPY config_example.yml /greengrass/config_example.yml

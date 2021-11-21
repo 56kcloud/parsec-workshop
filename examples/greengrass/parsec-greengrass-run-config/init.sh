@@ -23,12 +23,11 @@ common_params="\
 --trusted-plugin ../../parsec-greengrass-plugin/target/aws.greengrass.crypto.ParsecProvider.jar \
 "
 function write_gg_run_config() {
-  name="$1"
-  params="${common_params} $2"
-  echo "${name}"
-  cat > ../../../../.run/${name}.run.xml << EOF
+  params="${common_params} ${2}"
+  echo "${1}"
+  cat > ../../../../.run/${1}.run.xml << EOF
   <component name="ProjectRunConfigurationManager">
-    <configuration default="false" name="${name}" type="JarApplication">
+    <configuration default="false" name="${1}" type="JarApplication">
       <option name="JAR_PATH" value="$(pwd)/lib/Greengrass.jar" />
       <option name="PROGRAM_PARAMETERS" value="${params}" />
       <option name="WORKING_DIRECTORY" value="$(pwd)" />
@@ -49,8 +48,6 @@ EOF
 }
 function write_gg_docker_run_config() {
   name="$1"
-  provision="$2"
-  start="$3"
   echo "${name}"
   cat > ../../../../.run/${name}.run.xml <<EOF
 <component name="ProjectRunConfigurationManager">
@@ -59,6 +56,7 @@ function write_gg_docker_run_config() {
       <settings>
         <option name="containerName" value="${name}" />
         <option name="imageTag" value="${name}:latest" />
+        <option name="command" value="${2}" />
         <option name="envVars">
           <list>
             <DockerEnvVarImpl>
@@ -80,14 +78,6 @@ function write_gg_docker_run_config() {
             <DockerEnvVarImpl>
               <option name="name" value="GG_ADDITIONAL_CMD_ARGS" />
               <option name="value" value="--trusted-plugin /provider.jar" />
-            </DockerEnvVarImpl>
-            <DockerEnvVarImpl>
-              <option name="name" value="GG_START" />
-              <option name="value" value="${start}" />
-            </DockerEnvVarImpl>
-            <DockerEnvVarImpl>
-              <option name="name" value="GG_PROVISION" />
-              <option name="value" value="${provision}" />
             </DockerEnvVarImpl>
             <DockerEnvVarImpl>
               <option name="name" value="GG_THING_NAME" />
@@ -121,10 +111,9 @@ EOF
 }
 
 function write_gg_docker_debug_config() {
-  debug_name="${1}"
-  cat > "../../../../.run/${debug_name} (debug).run.xml" << EOF
+  cat > "../../../../.run/${1} (debug).run.xml" << EOF
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="${debug_name} (debug)" type="Remote">
+  <configuration default="false" name="${1} (debug)" type="Remote">
     <module name="parsec-greengrass-plugin" />
     <option name="USE_SOCKET_TRANSPORT" value="true" />
     <option name="SERVER_MODE" value="false" />
@@ -134,7 +123,7 @@ function write_gg_docker_debug_config() {
     <option name="AUTO_RESTART" value="false" />
     <method v="2">
       <option name="RunConfigurationTask" enabled="true" run_configuration_name="parsec_docker_run" run_configuration_type="docker-deploy" />
-      <option name="com.intellij.docker.debug.DockerBeforeRunTask" command="debug" run-config="${debug_name}" />
+      <option name="com.intellij.docker.debug.DockerBeforeRunTask" command="${2} debug" run-config="${1}" />
     </method>
   </configuration>
 </component>
@@ -166,11 +155,11 @@ write_parsec_docker_run_config
 write_gg_run_config gg_local_provision "--provision true --start false"
 write_gg_run_config gg_local_run "--provision false --start true"
 
-write_gg_docker_run_config gg_docker_provision true false
-write_gg_docker_run_config gg_docker_run false true
+write_gg_docker_run_config gg_docker_provision provision
+write_gg_docker_run_config gg_docker_run run
 
-write_gg_docker_debug_config gg_docker_provision
-write_gg_docker_debug_config gg_docker_run
+write_gg_docker_debug_config gg_docker_provision provision
+write_gg_docker_debug_config gg_docker_run run
 
 
 if [ "$1" == "-y" ]; then

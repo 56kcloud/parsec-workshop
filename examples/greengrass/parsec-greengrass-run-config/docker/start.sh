@@ -6,11 +6,27 @@ case "${1}" in
 /bin/*sh)
   exec "${1}"
   ;;
-debug)
-  JAVA_OPTS="-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=5005"
-  echo "using Debug config ${JAVA_OPTS}"
+reprovision)
+  GG_PROVISION=true
+  GG_START=false
+  ;;
+provision)
+  GG_PROVISION=true
+  GG_START=false
+  backup_dir="backup_$(date --iso-8601=ns)"
+  mkdir -p "${backup_dir}"
+  (find . -maxdepth 1 -mindepth 1 |grep -v ./backup_ | xargs -I {} mv {} "${backup_dir}") || true
+  ;;
+run)
+  GG_PROVISION=false
+  GG_START=true
   ;;
 esac
+if [ "${2}" == "debug" ]; then
+  JAVA_OPTS="-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=5005"
+  echo "using Debug config ${JAVA_OPTS}"
+fi
+
 
 for mandatory_env in GG_THING_NAME GG_PROVISION GG_START; do
   if [ "${!mandatory_env}" == "" ]; then
@@ -36,14 +52,28 @@ if ! test -e /greengrass/config.yml; then
   exit 255
 fi
 
+set -x
 # shellcheck disable=SC2086
-exec java ${JAVA_OPTS} -Droot=/home/ggc-user \
-  -jar /greengrass/lib/Greengrass.jar \
-  --thing-name "${GG_THING_NAME}" \
-  --thing-group-name GreengrassQuickStartGroup \
-  --component-default-user ggc_user:ggc_group \
-  --provision "${GG_PROVISION}" \
-  --setup-system-service false \
-  --deploy-dev-tools true \
-  --init-config /greengrass/config.yml \
-  --start "${GG_START}" ${GG_ADDITIONAL_CMD_ARGS}
+
+
+CMD="java ${JAVA_OPTS}
+  -jar /greengrass/lib/Greengrass.jar
+  --root /home/ggc_user
+  --thing-name ${GG_THING_NAME}
+  --thing-group-name GreengrassQuickStartGroup
+  --component-default-user ggc_user:ggc_group
+  --provision ${GG_PROVISION}
+  --setup-system-service false
+  --deploy-dev-tools true
+  --init-config /greengrass/config.yml
+  --start ${GG_START} ${GG_ADDITIONAL_CMD_ARGS}
+  "
+if [ "${GG_KEEP_RUNNING}" == "true" ]; then
+  # shellcheck disable=SC2090
+  ${CMD}
+  exec sleep 10000
+else
+  # shellcheck disable=SC2086
+  exec ${CMD}
+fi
+
