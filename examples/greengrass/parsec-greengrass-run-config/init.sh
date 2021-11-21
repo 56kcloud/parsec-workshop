@@ -119,6 +119,7 @@ function write_gg_docker_debug_config() {
     <option name="AUTO_RESTART" value="false" />
     <method v="2">
       <option name="RunConfigurationTask" enabled="true" run_configuration_name="parsec_docker_run" run_configuration_type="docker-deploy" />
+      <option name="Maven.BeforeRunTask" enabled="true" file="\$PROJECT_DIR$/pom.xml" goal="-o -pl examples/greengrass/parsec-greengrass-plugin package -DskipTests=true" />
       <option name="com.intellij.docker.debug.DockerBeforeRunTask" command="${2} debug" run-config="${1}" />
     </method>
   </configuration>
