@@ -1,9 +1,9 @@
 system:
-  certificateFilePath: "parsec:"
-  #privateKeyPath: "${GGC_ROOT_PATH}/private.pem.key"
+  certificateFilePath: "parsec:object=ggeulachtoken;type=cert"
+  #privateKeyPath: "/private.pem.key"
   # the object in the URI is the actual label given the private key
-  privateKeyPath: "parsec:"
-  rootCaPath: "${GGC_ROOT_PATH}/AmazonRootCA1.pem"
+  privateKeyPath: "parsec:object=ggeulachtoken;type=cert"
+  rootCaPath: "/AmazonRootCA1.pem"
   rootpath: ""
   thingName: "${THING_NAME}"
 services:
@@ -17,7 +17,7 @@ services:
       iotCredEndpoint: "device-credentials-prefix.credentials.iot.eu-central-1.amazonaws.com"
   aws.greengrass.crypto.Pkcs11Provider:
     configuration:
-      # requied, but value doesn't matter, labelling the backend of the provider
+      # required, but value doesn't matter, labelling the backend of the provider
       pemCaPath: ...
       pemCertPath: ...
       importKeyPath: ...
