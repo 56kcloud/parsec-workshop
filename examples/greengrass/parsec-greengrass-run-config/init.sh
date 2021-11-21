@@ -39,7 +39,7 @@ function write_run_config() {
         <env name="AWS_REGION" value="${AWS_REGION}" />
       </envs>
       <method v="2">
-            <option name="Maven.BeforeRunTask" enabled="true" file="\$PROJECT_DIR$/examples/greengrass/parsec-greengrass-plugin/pom.xml" goal="package -DskipTests=true" />
+        <option name="Maven.BeforeRunTask" enabled="true" file="\$PROJECT_DIR$/pom.xml" goal="-o -pl examples/greengrass/parsec-greengrass-plugin package -DskipTests=true" />
       </method>
     </configuration>
   </component>
