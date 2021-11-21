@@ -9,10 +9,12 @@ case "${1}" in
 reprovision)
   GG_PROVISION=true
   GG_START=false
+  aws --region "${AWS_REGION}" iot create-thing --thing-name "${GG_THING_NAME}"
   ;;
 provision)
   GG_PROVISION=true
   GG_START=false
+  aws --region "${AWS_REGION}" iot create-thing --thing-name "${GG_THING_NAME}"
   backup_dir="backup_$(date --iso-8601=ns)"
   mkdir -p "${backup_dir}"
   (find . -maxdepth 1 -mindepth 1 |grep -v ./backup_ | xargs -I {} mv {} "${backup_dir}") || true
@@ -42,10 +44,6 @@ for warn_env in AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY AWS_REGION; do
     echo "the env variable ${warn_env} is not set, container might fail later"
   fi
 done
-
-if [ "${GG_PROVISION}" == "true" ]; then
-  aws --region "${AWS_REGION}" iot create-thing --thing-name "${GG_THING_NAME}"
-fi
 
 if ! test -e /greengrass/config.yml; then
   echo "please map a config file to /greengrass/config.yml"

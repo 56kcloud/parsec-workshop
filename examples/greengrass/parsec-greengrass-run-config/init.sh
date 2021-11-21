@@ -15,7 +15,7 @@ if ! test -f "${GREENGRASS_ZIP_FILE}"; then
 fi
 common_params="\
 --root $(pwd) \
---thing-name $(id -un)--gg-parsec \
+--thing-name $(id -un)-gg-parsec \
 --thing-group-name GreengrassQuickStartGroup \
 --setup-system-service false \
 --deploy-dev-tools true \
