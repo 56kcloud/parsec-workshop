@@ -4,7 +4,7 @@ set -e -o pipefail
 JAVA_OPTS=""
 case "${1}" in
 /bin/*sh)
-  exec "${1}"
+  exec "$@"
   ;;
 reprovision)
   GG_PROVISION=true

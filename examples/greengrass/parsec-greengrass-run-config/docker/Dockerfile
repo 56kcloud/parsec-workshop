@@ -23,26 +23,24 @@ RUN git clone --recursive https://github.com/awslabs/aws-crt-java.git && \
     git checkout key-op-prototype && \
     git submodule update --init && \
     mvn -N io.takari:maven:0.7.7:wrapper && \
-    ./mvnw clean install -DskipTests=true
+    ./mvnw clean source:jar install -DskipTests=true
 
 RUN git clone --recursive https://github.com/aws/aws-iot-device-sdk-java-v2.git && \
     cd aws-iot-device-sdk-java-v2 && \
     git checkout key-op-prototype && \
     git submodule update --init && \
     mvn -N io.takari:maven:0.7.7:wrapper && \
-    ./mvnw clean install -DskipTests=true
+    ./mvnw clean source:jar install -DskipTests=true
 
-RUN git clone --recursive  https://github.com/aws-greengrass/aws-greengrass-nucleus.git && \
+RUN git clone --recursive  https://github.com/revaultch/aws-greengrass-nucleus.git && \
     cd aws-greengrass-nucleus && \
-    git checkout v2.5.0 && \
+    git checkout key-op-prototype && \
     git submodule update --init && \
     mvn -N io.takari:maven:0.7.7:wrapper && \
-    ./mvnw clean install -DskipTests=true && \
-    ./mvnw install -DskipTests=true && \
-    sed -i  's/1.5.3-WINDOWS-SNAPSHOT/1.0.0-SNAPSHOT/g' pom.xml && \
-    ./mvnw install -DskipTests=true
+    ./mvnw clean source:jar install -DskipTests=true
 
-RUN find ~/.m2/repository -type f |grep -v -E '(com.aws|software.amazon)' | xargs | rm -f
+RUN find /root/.m2/repository/ -mindepth 2 -maxdepth 2 |grep -v -E '(com/aws|software/amazon)'|xargs rm -rf && \
+    find /root/.m2/repository -type f
 
 FROM parallaxsecond/parsec:0.8.1 as parsec
 
