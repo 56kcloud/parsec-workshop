@@ -14,7 +14,7 @@ RUN mkdir /greengrass && \
     unzip ../${GREENGRASS_ZIP_FILE}
 
 FROM amazoncorretto:8 as from_source_builder
-
+# able to trigger the build when repo is dirty
 RUN yum install -y maven make cmake3 git gcc && \
     ln -s /usr/bin/cmake3 /usr/bin/cmake
 
@@ -38,6 +38,25 @@ RUN git clone --recursive  https://github.com/revaultch/aws-greengrass-nucleus.g
     git submodule update --init && \
     mvn -N io.takari:maven:0.7.7:wrapper && \
     ./mvnw clean source:jar install -DskipTests=true
+
+ARG BUILD_TS=1
+RUN cd aws-crt-java && \
+    git pull && \
+    git submodule update --init && \
+    ./mvnw clean source:jar install -DskipTests=true -Dts=${BUILD_TS}
+
+RUN cd aws-iot-device-sdk-java-v2 && \
+    git pull && \
+    git submodule update --init && \
+    ./mvnw clean source:jar install -DskipTests=true -Dts=${BUILD_TS}
+
+RUN cd aws-greengrass-nucleus && \
+    git pull && \
+    git submodule update --init && \
+    ./mvnw clean source:jar install -DskipTests=true -Dts=${BUILD_TS}
+
+
+
 
 RUN find /root/.m2/repository/ -mindepth 2 -maxdepth 2 |grep -v -E '(com/aws|software/amazon)'|xargs rm -rf && \
     find /root/.m2/repository -type f
