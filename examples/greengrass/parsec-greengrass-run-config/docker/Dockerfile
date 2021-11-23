@@ -72,6 +72,7 @@ COPY --from=from_source_builder /aws-greengrass-nucleus/target/Greengrass.jar /g
 COPY --from=from_source_builder /root/.m2 /root/.m2
 
 # TINI_KILL_PROCESS_GROUP allows forwarding SIGTERM to all PIDs in the PID group so Greengrass can exit gracefully
+ENV JAVA_OPTS=""
 ENV TINI_KILL_PROCESS_GROUP=1
 ENV GG_ADDITIONAL_CMD_ARGS=""
 ENV GG_START=""

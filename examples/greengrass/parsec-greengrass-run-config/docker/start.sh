@@ -25,7 +25,7 @@ run)
   ;;
 esac
 if [ "${2}" == "debug" ]; then
-  JAVA_OPTS="-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=5005"
+  JAVA_OPTS="${JAVA_OPTS} -agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=5005"
   echo "using Debug config ${JAVA_OPTS}"
 fi
 
