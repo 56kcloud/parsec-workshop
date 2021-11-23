@@ -19,5 +19,5 @@ services:
       iotCredEndpoint: "device-credentials-prefix.credentials.iot.eu-central-1.amazonaws.com"
   aws.greengrass.crypto.ParsecProvider:
     configuration:
-      name: "greengrass-parsec-plugin"
+      name: "ParsecProvider"
       parsecSocket: "/run/parsec/parsec.sock"
