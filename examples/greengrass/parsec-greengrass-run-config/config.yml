@@ -20,6 +20,4 @@ services:
   aws.greengrass.crypto.ParsecProvider:
     configuration:
       name: "greengrass-parsec-plugin"
-      derRootCaPath: ...
-      derCertPath: ...
       parsecSocket: "/run/parsec/parsec.sock"
