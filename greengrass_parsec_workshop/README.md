@@ -21,7 +21,7 @@ If you don't have hardware at hand, but still would like to test on an embedded 
 
 Tested on the following
 
-- Apple M1 laptop OSX 
+- Apple M1 laptop (OSX Monterey 12.1)
 - Intel based x86 workstation (test on Ubuntu, Fedora and ArchLinux)
 - [Solid-Run MACCHIATOBin ARMADA 8040 (Cortex-A72)](https://developer.solid-run.com/article-categories/macchiatobin-single-double-shot/)
 - [Solid-Run Honeycomb LXK2 NXP  (Cortex-A72)](https://www.solid-run.com/arm-servers-networking-platforms/honeycomb-workstation/)
@@ -33,11 +33,16 @@ TPM's currently being implemented as part of this workshop
 - Qualcomm SPU240 HW RoT / SPU (WIP)
 - EDK II UEFI SoftTPM (new concept) 
 
+### Example of 
+
+Example of 3 screens, PArsec Service, Greengrass Local Debug Console showing 
+<img src="docs/56kcloud_parsec_greengrass_onrb5_sucess.png" alt="56K.Cloud Logo" height="1024">
+
 ## Contributions
 
 Companies and Individusl that have contributed and participated in building this workshop
 * [56K.Cloud](https://blog.56k.cloud/arm-parsec-and-56k-5gusecases/)
 * [SayDo](https://www.saydo.co/en/)
 * [ReVault](https://revault.ch/en/#)
-* [Solid-Run]()
-* [ARM]()
+* [Solid-Run](https://solid-run.com/)
+* [ARM](https://developer.arm.com/solutions/infrastructure/developer-resources/security/parsec)
