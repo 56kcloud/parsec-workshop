@@ -30,7 +30,7 @@ function dirty_build_on_new_comits() {
 }
 
 function build_greengrass_patched() {
-pushd examples/greengrass/parsec-greengrass-run-config/docker/
+pushd parsec-greengrass-run-config/docker/
 docker build . \
        --build-arg BUILD_TS=${DIRTY_TS} \
        --tag parallaxsecond/greengrass_patched:latest \
