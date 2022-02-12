@@ -1,6 +1,6 @@
 FROM parallaxsecond/greengrass_patched:latest as from_source_builder
 COPY ./ /project
-RUN cd /project && \
+RUN cd /project/aws-greengrass-parsec-provider && \
      ./mvnw clean install -DskipTests=true -Dcontainers.skip=true
 
 FROM parallaxsecond/greengrass_patched:latest
