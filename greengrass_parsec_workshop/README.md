@@ -9,7 +9,22 @@ Before you begin you should be family of both PARSEC and AWS Greengrass, have at
 ## DEMO
 Located in this workshop is a "out of the box" demo setup which build and deploys the complete solution from the workshop learning steps, it is used as both a learning guide and short example when demonstrating the use of Parsec with AWS Greengrass
 
-### How to get started
+Demo HOWTO
+
+- git pull repo, and checkout building_parsec_workshop
+- cd into greengrass_parsec_workshop/
+- create secrets.env file with the following:
+   AWS_ACCESS_KEY_ID=
+   AWS_SECRET_ACCESS_KEY=
+   AWS_REGION=eu-central-1
+
+- run ./build_demo.sh (it should build and then run)
+- Please note: (Can take up to 11mins based on how long the AWS CRT and Device SDK container builds as they are building from a branch that hasn't been upstreamed yet (op-key-prototype))
+- Once the build is finished it will go directly into provisioning Greengrass, and restart with the parsec plugin where the provisioning step as stored the private key in parsec service (EMbed crypto backend)
+- If you visit the Greengrass console here: https://eu-central-1.console.aws.amazon.com/iot/home?region=eu-central-1#/greengrass/v2/cores 
+- You should now see your device listed "<hostname/username>-greengrass-parsec"
+
+### How to get started in development
 
 To get started you will need the following, an aarch64 or x86 device or your local computer, an active AWS account and your API credentials, Github access configurated locally
 The demo.sh file will do the following
@@ -33,10 +48,10 @@ TPM's currently being implemented as part of this workshop
 - Qualcomm SPU240 HW RoT / SPU (WIP)
 - EDK II UEFI SoftTPM (new concept) 
 
-### Example of 
+### Example of Demo
 
 Example of 3 screens, PArsec Service, Greengrass Local Debug Console showing 
-<img src="docs/56kcloud_parsec_greengrass_onrb5_sucess.png" alt="56K.Cloud Logo" height="1024">
+<img src="docs/56kcloud_parsec_greengrass_onrb5_sucess.png" alt="56K.Cloud Logo" height="800">
 
 ## Contributions
 
