@@ -1,5 +1,5 @@
 [core_settings]
-log_timestamp = false
+log_timestamp = true
 log_error_details = true
 allow_root = true
 

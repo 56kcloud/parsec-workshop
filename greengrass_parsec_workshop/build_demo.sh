@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 pushd $(dirname $0)
-md5_cmd=md5
+md5_cmd=md5sum
 
 if ! test -x /sbin/md5; then
   md5_cmd=md5sum
@@ -55,6 +55,7 @@ popd
 }
 
 function build_greengrass_with_provider() {
+  echo "Build of Greengrass and Parsec Plugin started..."
   docker build . -f greengrass_demo/Dockerfile --tag parallaxsecond/greengrass_demo:latest  --progress plain
 }
 
