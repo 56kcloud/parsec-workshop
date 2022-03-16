@@ -13,21 +13,14 @@ fi
 
 function update_git() {
   # Need to update the protobuf from parsec
-  git submodule init
-  git submodule update
-  pushd ./aws-greengrass-parsec-provider/
-  git submodule init
-  git submodule update
-  pushd ./aws-greengrass-parsec-provider/parsec-client-java/
-  git submodule init
-  git submodule update
+  git submodule update --init --recursive
 }
 
 function dirty_build_on_new_comits() {
   for repo in \
     awslabs/aws-crt-java \
-    aws/aws-iot-device-sdk-java-v2 \
-    revaultch/aws-greengrass-nucleus; do
+    aws/aws-iot-device-sdk-java-v2; do
+#    revaultch/aws-greengrass-nucleus; do
   curl -S https://api.github.com/repos/${repo}/commits/key-op-prototype
   done | ${md5_cmd} | cut -d" " -f1 > greengrass_demo/dirty_repo.txt
   touch -t 190001010000 greengrass_demo/dirty_repo.txt
