@@ -1,0 +1,4 @@
+[submodule "greengrass_parsec_workshop/aws-greengrass-parsec-provider"]
+	path = greengrass_parsec_workshop/aws-greengrass-parsec-provider
+	url = https://github.com/56kcloud/aws-greengrass-parsec-provider.git
+	branch = main
