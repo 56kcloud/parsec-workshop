@@ -1,36 +1,52 @@
-# AWS Greengrass using Parsec - Workshop
+# AWS IoT Greengrass using PARSEC - Workshop
 
-This is a short workshop on how to use PARSEC plugin in AWS Greengrass v2 Nucleaus to achieve native security across device hardware
-Before you begin you should be family of both PARSEC and AWS Greengrass, have at least deployed both and understand the use case of both technologies, we recommend the following to become familur
+This is a short workshop on how to use the PARSEC plugin in AWS IoT Greengrass v2 Nucleaus to achieve native security across device hardware.
 
-* [AWS Greengrass V2 Workshop](https://catalog.us-east-1.prod.workshops.aws/v2/workshops/5ecc2416-f956-4273-b729-d0d30556013f/en-US/) 
-* Parsec Walkthorugh with 
+Before you begin you should be familiar with PARSEC and AWS IoT Greengrass. You should have at least deployed both and understand the use case of both technologies, we recommend the following to become familiar
+
+* [AWS IoT Greengrass V2 Workshop](https://catalog.us-east-1.prod.workshops.aws/v2/workshops/5ecc2416-f956-4273-b729-d0d30556013f/en-US/)
+* PARSEC Walkthrough with
 
 ## DEMO
-Located in this workshop is a "out of the box" demo setup which build and deploys the complete solution from the workshop learning steps, it is used as both a learning guide and short example when demonstrating the use of Parsec with AWS Greengrass
+Located in this workshop is a "out of the box" demo setup which build and deploys the complete solution from the workshop learning steps, it is used as both a learning guide and short example when demonstrating the use of PARSEC with AWS IoT Greengrass.
 
-Demo HOWTO
+### How to start the Demo
 
-- git pull repo, and checkout building_parsec_workshop
-- cd into greengrass_parsec_workshop/
-- create secrets.env file with the following:
-   AWS_ACCESS_KEY_ID=
-   AWS_SECRET_ACCESS_KEY=
-   AWS_REGION=eu-central-1
+#### Clone the repo and switch to the branch
+```shell
+git clone git@github.com:56kcloud/parsec-workshop.git
+cd parsec-workshop
+git checkout building_parsec_workshop
+```
 
-- run ./build_demo.sh (it should build and then run)
-- Please note: (Can take up to 11mins based on how long the AWS CRT and Device SDK container builds as they are building from a branch that hasn't been upstreamed yet (op-key-prototype))
-- Once the build is finished it will go directly into provisioning Greengrass, and restart with the parsec plugin where the provisioning step as stored the private key in parsec service (EMbed crypto backend)
-- If you visit the Greengrass console here: https://eu-central-1.console.aws.amazon.com/iot/home?region=eu-central-1#/greengrass/v2/cores 
-- You should now see your device listed "<hostname/username>-greengrass-parsec"
+#### Create `secrets.env` file
+```shell
+cat <<EOT >secrets.env
+AWS_ACCESS_KEY_ID=
+AWS_SECRET_ACCESS_KEY=
+AWS_REGION=eu-central-1
+EOT
+```
+
+#### Run the demo
+```shell
+./build_demo.sh
+```
+This script builds all the containers and runs the demo.
+
+__PLEASE NOTE__: Depending on the spec of your machine the building of the containers can take between 10 and 20 minutes. It depends on how long the AWS CRT and Device SDK container build runs, as they are build from a branch (op-key-prototype) that hasn't been upstreamed yet.
+
+Once the build is finished it will go directly into provisioning Greengrass, and restarts with the PARSEC plugin where the provisioning step stores the private key in the PARSEC service (EMbed crypto backend)
+
+If you visit the [Greengrass console](https://eu-central-1.console.aws.amazon.com/iot/home?region=eu-central-1#/greengrass/v2/cores) you should now see your device listed as `<hostname/username>-greengrass-parsec`
 
 ### How to get started in development
 
 To get started you will need the following, an aarch64 or x86 device or your local computer, an active AWS account and your API credentials, Github access configurated locally
 The demo.sh file will do the following
 
-- Prepare Git and gitsubmodule (for sourcing the Java client, Greengrass Parsec plugin and build them )
-- Build the docker containers that package in, AWS Greengrass, Parsec service and intermidate steps 
+- Prepare Git and gitsubmodule (for sourcing the Java client, Greengrass PARSEC plugin and build them )
+- Build the docker containers that package in, AWS IoT Greengrass, PARSEC service and intermidate steps
 
 If you don't have hardware at hand, but still would like to test on an embedded device, then the ARM Hardware lab hosted by MiniNodes can help more info can be found here: https://github.com/WorksOnArm/mininodes-arm-edge
 
@@ -44,13 +60,13 @@ Tested on the following
 
 TPM's currently being implemented as part of this workshop
 
-- 96boards Secure96 TPM 
+- 96boards Secure96 TPM
 - Qualcomm SPU240 HW RoT / SPU (WIP)
-- EDK II UEFI SoftTPM (new concept) 
+- EDK II UEFI SoftTPM (new concept)
 
 ### Example of Demo
 
-Example of 3 screens, PArsec Service, Greengrass Local Debug Console showing 
+Example of 3 screens, PARSEC Service, Greengrass Local Debug Console showing
 <img src="docs/56kcloud_parsec_greengrass_onrb5_sucess.png" alt="56K.Cloud Logo" height="800">
 
 ## Contributions
